@@ -1,6 +1,6 @@
 import { LambdaIntegration, MethodLoggingLevel, RestApi } from "aws-cdk-lib/aws-apigateway"
 import { PolicyStatement } from "aws-cdk-lib/aws-iam"
-import { Function, Runtime, AssetCode, Code } from "aws-cdk-lib/aws-lambda"
+import { Function, Runtime, AssetCode } from "aws-cdk-lib/aws-lambda"
 import { Duration, Stack, StackProps } from "aws-cdk-lib"
 import s3 = require("aws-cdk-lib/aws-s3")
 import { Construct } from "constructs"
@@ -35,9 +35,9 @@ export class CDKExampleLambdaApiStack extends Stack {
         this.lambdaFunction = new Function(this, props.functionName, {
             functionName: props.functionName,
             handler: "handler.handler",
-            runtime: Runtime.NODEJS_10_X,
+            runtime: Runtime.NODEJS_LATEST,
             code: new AssetCode(`./src`),
-            memorySize: 512,
+            memorySize: 128,
             timeout: Duration.seconds(10),
             environment: {
                 BUCKET: this.bucket.bucketName,
